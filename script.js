@@ -105,13 +105,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const envSec = document.getElementById('envelope-section');
         const cardSec = document.getElementById('card-section');
 
+        // Stage 1 (0ms): Fold top flap back & start letter slide out
         if (envWrap) envWrap.classList.add('open');
 
-        // Failsafe Confetti & Music
-        try { if (typeof triggerConfetti === 'function') triggerConfetti(); } catch (err) {}
-        try { if (typeof toggleMusic === 'function') toggleMusic(true); } catch (err) {}
+        // Stage 2 (500ms): Play confetti fireworks & ambient music as letter reaches top
+        setTimeout(() => {
+            try { if (typeof triggerConfetti === 'function') triggerConfetti(); } catch (err) {}
+            try { if (typeof toggleMusic === 'function') toggleMusic(true); } catch (err) {}
+        }, 500);
 
-        // Immediate & Failsafe DOM Transition
+        // Stage 3 (1100ms): Smoothly fade out envelope intro section
+        setTimeout(() => {
+            if (envSec) envSec.classList.add('fade-out');
+        }, 1100);
+
+        // Stage 4 (1500ms): Reveal invitation card page smoothly & hide envelope section
         setTimeout(() => {
             if (envSec) envSec.style.display = 'none';
             if (cardSec) {
@@ -120,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 cardSec.style.opacity = '1';
             }
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 500);
+        }, 1500);
     };
 
     if (envelopeWrapper) envelopeWrapper.onclick = window.openEnvelope;

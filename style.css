@@ -224,6 +224,13 @@ body:not(.music-playing) .music-wave span {
     padding: 20px;
     position: relative;
     z-index: 10;
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.envelope-section.fade-out {
+    opacity: 0;
+    transform: scale(1.08);
+    pointer-events: none;
 }
 
 .envelope-wrapper {
@@ -380,15 +387,38 @@ body:not(.music-playing) .music-wave span {
 .envelope-wrapper.open .top-flap {
     transform: rotateX(180deg);
     z-index: 1;
+    transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .envelope-wrapper.open .letter-preview {
-    transform: translateY(-130px) scale(1.06);
-    z-index: 7;
+    animation: slideOutLetter 1.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation-delay: 0.35s;
+}
+
+@keyframes slideOutLetter {
+    0% {
+        transform: translateY(0) scale(1);
+        z-index: 2;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    }
+    45% {
+        transform: translateY(-90px) scale(1.02);
+        z-index: 2;
+    }
+    55% {
+        z-index: 10;
+    }
+    100% {
+        transform: translateY(-200px) scale(1.15);
+        z-index: 10;
+        box-shadow: 0 25px 50px rgba(243, 111, 33, 0.35);
+    }
 }
 
 .envelope-wrapper.open .seal {
     opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+    transition: opacity 0.4s ease, transform 0.4s ease;
     pointer-events: none;
 }
 
