@@ -24,7 +24,21 @@ document.addEventListener('DOMContentLoaded', () => {
         savedConfig = defaultConfig;
         localStorage.setItem('grad_invitation_config', JSON.stringify(defaultConfig));
     }
-    let appConfig = savedConfig;
+    function getSampleRSVPs() {
+        return [
+            { id: 1, name: 'Trần Minh Hoàng', phone: '0901234567', guests: 2, attendance: 'attending', afterparty: 'yes', note: 'Chúc mừng Tân nhé! Hẹn gặp ở trường!', createdAt: '10/09/2026' },
+            { id: 2, name: 'Lê Thị Thu Thảo', phone: '0988765432', guests: 1, attendance: 'attending', afterparty: 'yes', note: 'Siêu tự hào về Tân luôn! Chuẩn bị quà xịn rồi nha.', createdAt: '11/09/2026' }
+        ];
+    }
+
+    function getSampleWishes() {
+        return [
+            { id: 1, author: 'Minh Hoàng', text: 'Chúc mừng Tân Cử Nhân xuất sắc! Chúc Tân bước sang chặng đường mới luôn gặt hái nhiều thành công rực rỡ nhé! 🚀', sticker: '🎓', time: '10:15 11/09/2026' },
+            { id: 2, author: 'Thu Thảo', text: 'Tự hào về cậu thật sự. 4 năm nỗ lực đã được đền đáp xứng đáng rồi nè! 🎉🎉', sticker: '💐', time: '14:30 11/09/2026' },
+            { id: 3, author: 'Nhóm Bạn Thân A4', text: 'Chúc Tân ra trường công việc thuận lợi, lương nghìn đô, vạn sự như ý nha bro! ⭐', sticker: '⭐', time: '16:45 11/09/2026' }
+        ];
+    }
+
     let rsvpList = JSON.parse(localStorage.getItem('grad_invitation_rsvps')) || getSampleRSVPs();
     let wishesList = JSON.parse(localStorage.getItem('grad_invitation_wishes')) || getSampleWishes();
     let isMusicPlaying = false;
