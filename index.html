@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Mời Lễ Tốt Nghiệp | Graduation Invitation</title>
+    <meta name="description" content="Thiệp mời lễ tốt nghiệp tương tác dành cho bạn bè và người thân. Trân trọng kính mời!">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- html2canvas for HD Card Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="theme-gold">
+    <!-- Canvas background for fireworks & floating confetti -->
+    <canvas id="confetti-canvas"></canvas>
+
+    <!-- Floating Top Toolbar Controls -->
+    <div class="top-controls">
+        <button id="btn-music" class="control-btn" title="Bật/Tắt Nhạc Nền">
+            <i class="fa-solid fa-music"></i>
+            <span class="music-wave">
+                <span></span><span></span><span></span>
+            </span>
+        </button>
+        <button id="btn-customizer" class="control-btn accent-btn" title="Chỉnh sửa Thiệp (Dành cho Tân Cử nhân)">
+            <i class="fa-solid fa-wand-magic-sparkles"></i> Sửa Thiệp
+        </button>
+        <button id="btn-view-rsvp" class="control-btn" title="Xem danh sách RSVP">
+            <i class="fa-solid fa-list-check"></i> Xem RSVP (<span id="rsvp-count">0</span>)
+        </button>
+    </div>
+
+    <!-- MAIN APP WRAPPER -->
+    <main class="app-container">
+
+        <!-- 1. ENVELOPE INTRO SECTION -->
+        <section id="envelope-section" class="envelope-section">
+            <div class="envelope-wrapper" id="envelope-wrapper">
+                <div class="envelope">
+                    <div class="flap top-flap"></div>
+                    <div class="pocket"></div>
+                    <div class="letter-preview">
+                        <div class="preview-badge"><i class="fa-solid fa-graduation-cap"></i> INVITATION</div>
+                        <p class="preview-name">Nguyễn Văn An</p>
+                    </div>
+                    <div class="seal" id="envelope-seal" title="Chạm để mở thư">
+                        <i class="fa-solid fa-graduation-cap"></i>
+                        <span class="seal-text">MỞ THƯ</span>
+                    </div>
+                </div>
+            </div>
+            <div class="open-instruction">
+                <div class="sparkle-icon"><i class="fa-solid fa-sparkles"></i></div>
+                <p>Chạm vào <strong>Con Dấu Vàng</strong> để mở thiệp mời</p>
+                <div class="pulse-ring"></div>
+            </div>
+        </section>
+
+        <!-- 2. MAIN INVITATION CARD DISPLAY -->
+        <section id="card-section" class="card-section hidden">
+            
+            <!-- Floating Quick Nav Buttons -->
+            <div class="card-quick-actions">
+                <button class="action-chip" onclick="scrollToSection('rsvp-section')">
+                    <i class="fa-solid fa-paper-plane"></i> Xác Nhận Tham Dự
+                </button>
+                <button class="action-chip" onclick="scrollToSection('wishes-section')">
+                    <i class="fa-solid fa-heart"></i> Gửi Lời Chúc
+                </button>
+                <button class="action-chip" id="btn-export-card">
+                    <i class="fa-solid fa-download"></i> Tải Thiệp HD
+                </button>
+                <button class="action-chip" id="btn-share-link">
+                    <i class="fa-solid fa-share-nodes"></i> Chia Sẻ
+                </button>
+            </div>
+
+            <!-- THE FORMAL INVITATION CARD (TARGET FOR CANVAS EXPORT) -->
+            <div class="invitation-card" id="invitation-card">
+                <div class="card-border-frame">
+                    <div class="corner-ornament top-left"></div>
+                    <div class="corner-ornament top-right"></div>
+                    <div class="corner-ornament bottom-left"></div>
+                    <div class="corner-ornament bottom-right"></div>
+
+                    <!-- Header Banner -->
+                    <div class="card-header">
+                        <div class="sub-title"><i class="fa-solid fa-award"></i> THIỆP MỜI TRÂN TRỌNG <i class="fa-solid fa-award"></i></div>
+                        <h1 class="main-title">LỄ TỐT NGHIỆP</h1>
+                        <div class="academic-year">GRADUATION CEREMONY • 2026</div>
+                    </div>
+
+                    <!-- Graduate Profile -->
+                    <div class="graduate-profile">
+                        <div class="avatar-container">
+                            <img id="display-avatar" src="assets/graduate.png" alt="Ảnh Tân Cử nhân" onerror="this.src='https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=600&q=80'">
+                            <div class="cap-badge"><i class="fa-solid fa-graduation-cap"></i></div>
+                        </div>
+                        <div class="graduate-info">
+                            <span class="salutation">Tân Cử Nhân</span>
+                            <h2 class="graduate-name" id="display-name">NGUYỄN VĂN AN</h2>
+                            <p class="graduate-major" id="display-major"><i class="fa-solid fa-book-open"></i> Ngành Công Nghệ Thông Tin</p>
+                            <p class="graduate-school" id="display-school"><i class="fa-solid fa-university"></i> Trường Đại học Bách Khoa - ĐHQG TP.HCM</p>
+                        </div>
+                    </div>
+
+                    <!-- Invitation Text -->
+                    <div class="invitation-body">
+                        <div class="divider-line"><span><i class="fa-solid fa-star"></i></span></div>
+                        <p class="greeting-text">Thân gửi bạn bè, người thân & những người đồng hành tuyệt vời!</p>
+                        <p class="body-message" id="display-message">
+                            Sau hành trình nỗ lực học tập và rèn luyện tại giảng đường đại học, An rất hạnh phúc và vinh dự được nhận tấm bằng cử nhân. Sự có mặt và những lời chúc của bạn sẽ là niềm vui trọn vẹn nhất đối với An trong ngày trọng đại này!
+                        </p>
+                    </div>
+
+                    <!-- Ceremony Info Grid -->
+                    <div class="event-details-grid">
+                        <div class="detail-card">
+                            <div class="detail-icon"><i class="fa-solid fa-calendar-day"></i></div>
+                            <div class="detail-content">
+                                <span class="detail-label">NGÀY TỔ CHỨC</span>
+                                <strong class="detail-value" id="display-date">Thứ Bảy, 15/10/2026</strong>
+                            </div>
+                        </div>
+
+                        <div class="detail-card">
+                            <div class="detail-icon"><i class="fa-solid fa-clock"></i></div>
+                            <div class="detail-content">
+                                <span class="detail-label">THỜI GIAN</span>
+                                <strong class="detail-value" id="display-time">08:00 - 11:30 AM</strong>
+                            </div>
+                        </div>
+
+                        <div class="detail-card full-width">
+                            <div class="detail-icon"><i class="fa-solid fa-location-dot"></i></div>
+                            <div class="detail-content">
+                                <span class="detail-label">ĐỊA ĐIỂM BỔ TRỔ / HỘI TRƯỜNG</span>
+                                <strong class="detail-value" id="display-venue">Hội trường A5 - Trường Đại Học Bách Khoa</strong>
+                                <span class="detail-sub" id="display-address">268 Lý Thường Kiệt, Phường 14, Quận 10, TP. Hồ Chí Minh</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Card Footer Signature -->
+                    <div class="card-footer">
+                        <div class="signature-box">
+                            <p class="sig-note">Rất hân hạnh được đón tiếp!</p>
+                            <p class="sig-name" id="display-signature">Nguyễn Văn An</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- 3. COUNTDOWN TIMER SECTION -->
+            <div class="section-container countdown-container">
+                <h3 class="section-title"><i class="fa-solid fa-hourglass-half"></i> ĐỒNG HỒ ĐẾM NGƯỢC</h3>
+                <p class="section-subtitle">Chỉ còn ít thời gian nữa là đến khoảnh khắc trao bằng trọng đại!</p>
+
+                <div class="countdown-timer" id="countdown-timer">
+                    <div class="time-box">
+                        <span class="number" id="cd-days">00</span>
+                        <span class="unit">NGÀY</span>
+                    </div>
+                    <div class="time-sep">:</div>
+                    <div class="time-box">
+                        <span class="number" id="cd-hours">00</span>
+                        <span class="unit">GIỜ</span>
+                    </div>
+                    <div class="time-sep">:</div>
+                    <div class="time-box">
+                        <span class="number" id="cd-minutes">00</span>
+                        <span class="unit">PHÚT</span>
+                    </div>
+                    <div class="time-sep">:</div>
+                    <div class="time-box">
+                        <span class="number" id="cd-seconds">00</span>
+                        <span class="unit">GIÂY</span>
+                    </div>
+                </div>
+                
+                <div class="calendar-add-btn">
+                    <a id="google-calendar-link" target="_blank" rel="noopener" class="btn-secondary">
+                        <i class="fa-regular fa-calendar-plus"></i> Thêm Vào Google Calendar
+                    </a>
+                </div>
+            </div>
+
+            <!-- 4. TIMELINE SCHEDULE SECTION -->
+            <div class="section-container timeline-container">
+                <h3 class="section-title"><i class="fa-solid fa-list-ol"></i> LỊCH TRÌNH BUỔI LỄ</h3>
+                <div class="timeline-list">
+                    <div class="timeline-item">
+                        <div class="time-badge">08:00 - 08:45</div>
+                        <div class="timeline-content">
+                            <h4><i class="fa-solid fa-users"></i> Đón Khách & Chụp Ảnh Thảm Đỏ</h4>
+                            <p>Đón tiếp khách mời, bạn bè check-in nhận quà lưu niệm & chụp hình kỷ niệm tại photobooth.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time-badge">09:00 - 10:30</div>
+                        <div class="timeline-content">
+                            <h4><i class="fa-solid fa-graduation-cap"></i> Nghi Thức Trao Bằng Tốt Nghiệp</h4>
+                            <p>Khai mạc lễ tốt nghiệp, vinh danh Tân cử nhân và trao bằng chính thức tại hội trường.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time-badge">10:30 - 11:30</div>
+                        <div class="timeline-content">
+                            <h4><i class="fa-solid fa-camera-retro"></i> Tung Mũ Tốt Nghiệp & Chụp Ảnh</h4>
+                            <p>Tung mũ cử nhân cùng tập thể, chụp ảnh giao lưu tự do cùng bạn bè và người thân.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="time-badge">11:45 - 14:00</div>
+                        <div class="timeline-content">
+                            <h4><i class="fa-solid fa-utensils"></i> Tiệc Mừng Tốt Nghiệp (After Party)</h4>
+                            <p>Tiệc ngọt nhẹ & ăn mừng cùng hội bạn thân tại nhà hàng gần trường.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 5. LOCATION & MAP SECTION -->
+            <div class="section-container map-container">
+                <h3 class="section-title"><i class="fa-solid fa-map-location-dot"></i> BẢN ĐỒ & CHỈ ĐƯỜNG</h3>
+                <div class="map-card">
+                    <div class="map-info">
+                        <h4 id="map-venue-title">Trường Đại học Bách Khoa TP.HCM</h4>
+                        <p id="map-address-text"><i class="fa-solid fa-location-dot"></i> 268 Lý Thường Kiệt, Phường 14, Quận 10, TP. Hồ Chí Minh</p>
+                        <p><i class="fa-solid fa-square-parking"></i> Có bãi gửi xe máy & ô tô rộng rãi cho khách dự lễ</p>
+                    </div>
+                    <div class="map-actions">
+                        <a id="btn-open-map" href="https://maps.google.com/?q=268+Ly+Thuong+Kiet+Quan+10+TPHCM" target="_blank" class="btn-primary">
+                            <i class="fa-solid fa-diamond-turn-right"></i> Mở Google Maps Chỉ Đường
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 6. RSVP FORM SECTION -->
+            <div class="section-container rsvp-section" id="rsvp-section">
+                <h3 class="section-title"><i class="fa-solid fa-envelope-open-text"></i> XÁC NHẬN THAM DỰ (RSVP)</h3>
+                <p class="section-subtitle">Vui lòng phản hồi trước ngày <strong>10/10/2026</strong> để An chuẩn bị đón tiếp chu đáo nhất nhé!</p>
+
+                <form id="rsvp-form" class="rsvp-form">
+                    <div class="form-group">
+                        <label for="rsvp-name"><i class="fa-solid fa-user"></i> Họ và Tên của Bạn *</label>
+                        <input type="text" id="rsvp-name" required placeholder="Nhập tên của bạn...">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="rsvp-phone"><i class="fa-solid fa-phone"></i> Số Điện Thoại / Zalo</label>
+                            <input type="tel" id="rsvp-phone" placeholder="Nhập SĐT của bạn...">
+                        </div>
+                        <div class="form-group">
+                            <label for="rsvp-guests"><i class="fa-solid fa-user-plus"></i> Số Người Đi Cùng</label>
+                            <select id="rsvp-guests">
+                                <option value="1">1 người (Đi 1 mình)</option>
+                                <option value="2">2 người (+1 bạn)</option>
+                                <option value="3">3 người trở lên</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label><i class="fa-solid fa-circle-question"></i> Bạn Sẽ Tham Dự Chứ? *</label>
+                        <div class="radio-cards">
+                            <label class="radio-card active">
+                                <input type="radio" name="attendance" value="attending" checked>
+                                <div class="radio-content">
+                                    <i class="fa-solid fa-circle-check text-success"></i>
+                                    <strong>Chắc Chắn Tham Dự!</strong>
+                                    <span>Hẹn gặp An ở ngày trao bằng nhé!</span>
+                                </div>
+                            </label>
+                            <label class="radio-card">
+                                <input type="radio" name="attendance" value="declined">
+                                <div class="radio-content">
+                                    <i class="fa-solid fa-face-frown text-muted"></i>
+                                    <strong>Rất Tiếc Không Đến Đượcc</strong>
+                                    <span>Gửi lời chúc mừng từ xa cho An nhé.</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rsvp-afterparty"><i class="fa-solid fa-glass-cheers"></i> Tham Gia Tiệc Ăn Mừng (After Party)?</label>
+                        <select id="rsvp-afterparty">
+                            <option value="yes">Có, tớ sẽ tham gia tiệc sau lễ!</option>
+                            <option value="no">Chỉ tham dự lễ trao bằng & chụp ảnh</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="rsvp-note"><i class="fa-solid fa-comment-dots"></i> Lời Chúc Nhanh Cho Tân Cử Nhân</label>
+                        <textarea id="rsvp-note" rows="3" placeholder="Viết lời chúc hoặc ghi chú thêm cho An..."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit-rsvp">
+                        <i class="fa-solid fa-paper-plane"></i> GỬI XÁC NHẬN THAM DỰ
+                    </button>
+                </form>
+            </div>
+
+            <!-- 7. WISHES BOARD / GUESTBOOK SECTION -->
+            <div class="section-container wishes-section" id="wishes-section">
+                <h3 class="section-title"><i class="fa-solid fa-comments"></i> BỨC TƯỜNG LỜI CHÚC</h3>
+                <p class="section-subtitle">Cùng gửi những lời chúc ý nghĩa nhất tới Tân Cử Nhân!</p>
+
+                <!-- Quick Post Wish Box -->
+                <div class="quick-wish-box">
+                    <div class="form-group">
+                        <input type="text" id="wish-author" placeholder="Tên của bạn..." required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="wish-text" rows="2" placeholder="Nhập lời chúc mừng tới Tân Cử nhân..." required></textarea>
+                    </div>
+                    <div class="wish-options">
+                        <div class="sticker-selector">
+                            <span>Chọn icon:</span>
+                            <button type="button" class="sticker-btn active" data-sticker="🎓">🎓</button>
+                            <button type="button" class="sticker-btn" data-sticker="💐">💐</button>
+                            <button type="button" class="sticker-btn" data-sticker="🎉">🎉</button>
+                            <button type="button" class="sticker-btn" data-sticker="⭐">⭐</button>
+                            <button type="button" class="sticker-btn" data-sticker="🚀">🚀</button>
+                        </div>
+                        <button type="button" id="btn-post-wish" class="btn-primary">
+                            <i class="fa-solid fa-paper-plane"></i> Đăng Lời Chúc
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Wishes Wall Cards Container -->
+                <div class="wishes-grid" id="wishes-grid">
+                    <!-- Wish items dynamically populated -->
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="app-footer">
+                <p>Thiệp Mời Lễ Tốt Nghiệp • Tạo với tình yêu & sự tự hào 🎓</p>
+            </footer>
+
+        </section>
+    </main>
+
+    <!-- CARD CUSTOMIZER DRAWER / MODAL -->
+    <div id="customizer-modal" class="modal-overlay hidden">
+        <div class="modal-content customizer-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-wand-magic-sparkles"></i> CHỈNH SỬA NỘI DUNG THIỆP MỜI</h3>
+                <button class="close-modal" id="btn-close-customizer">&times;</button>
+            </div>
+            <div class="modal-body">
+
+                <!-- Theme Selection -->
+                <div class="form-group">
+                    <label><i class="fa-solid fa-palette"></i> Chọn Phong Cách Giao Diện (Theme)</label>
+                    <div class="theme-selector">
+                        <button type="button" class="theme-option active" data-theme="theme-gold">
+                            <span class="color-preview gold-nav"></span>
+                            <span>Royal Gold & Navy</span>
+                        </button>
+                        <button type="button" class="theme-option" data-theme="theme-burgundy">
+                            <span class="color-preview burgundy"></span>
+                            <span>Burgundy Red</span>
+                        </button>
+                        <button type="button" class="theme-option" data-theme="theme-pastel">
+                            <span class="color-preview pastel"></span>
+                            <span>Academic Pastel</span>
+                        </button>
+                        <button type="button" class="theme-option" data-theme="theme-cyber">
+                            <span class="color-preview cyber"></span>
+                            <span>Cyber Dark Neon</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Profile Customization -->
+                <div class="form-group">
+                    <label for="edit-name"><i class="fa-solid fa-user-graduate"></i> Họ và Tên Tân Cử Nhân</label>
+                    <input type="text" id="edit-name" value="NGUYỄN VĂN AN">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-major"><i class="fa-solid fa-book-open"></i> Ngành Học / Khoa</label>
+                    <input type="text" id="edit-major" value="Ngành Công Nghệ Thông Tin">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-school"><i class="fa-solid fa-university"></i> Tên Trường Đại Học / Viện</label>
+                    <input type="text" id="edit-school" value="Trường Đại học Bách Khoa - ĐHQG TP.HCM">
+                </div>
+
+                <!-- Avatar Upload or URL -->
+                <div class="form-group">
+                    <label for="edit-avatar-file"><i class="fa-solid fa-image"></i> Tải Ảnh Đại Diện Của Bạn</label>
+                    <input type="file" id="edit-avatar-file" accept="image/*">
+                </div>
+
+                <!-- Event Details -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="edit-date"><i class="fa-solid fa-calendar"></i> Ngày Tổ Chức</label>
+                        <input type="text" id="edit-date" value="Thứ Bảy, 15/10/2026">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-time"><i class="fa-solid fa-clock"></i> Thời Gian</label>
+                        <input type="text" id="edit-time" value="08:00 - 11:30 AM">
+                    </div>
+                </div>
+
+                <!-- ISO Date Picker for Countdown -->
+                <div class="form-group">
+                    <label for="edit-countdown-date"><i class="fa-solid fa-stopwatch"></i> Mốc Thời Gian Cho Bộ Đếm Ngược</label>
+                    <input type="datetime-local" id="edit-countdown-date" value="2026-10-15T08:00">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-venue"><i class="fa-solid fa-building"></i> Hội Trường / Địa Điểm</label>
+                    <input type="text" id="edit-venue" value="Hội trường A5 - Trường Đại Học Bách Khoa">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-address"><i class="fa-solid fa-map-pin"></i> Địa Chỉ Cụ Thể</label>
+                    <input type="text" id="edit-address" value="268 Lý Thường Kiệt, Phường 14, Quận 10, TP. Hồ Chí Minh">
+                </div>
+
+                <div class="form-group">
+                    <label for="edit-message"><i class="fa-solid fa-envelope"></i> Lời Nhắn Gửi Bạn Bè</label>
+                    <textarea id="edit-message" rows="4"></textarea>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button id="btn-save-customizer" class="btn-primary full-width">
+                    <i class="fa-solid fa-check"></i> Lưu & Áp Dụng Ngay
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- RSVP LIST VIEW MODAL FOR HOST -->
+    <div id="rsvp-modal" class="modal-overlay hidden">
+        <div class="modal-content rsvp-list-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-clipboard-list"></i> DANH SÁCH KHÁCH XÁC NHẬN THAM DỰ</h3>
+                <button class="close-modal" id="btn-close-rsvp-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="rsvp-summary-bar">
+                    <div class="summary-chip green">
+                        <span>Chắc chắn đi:</span> <strong id="count-attending">0</strong>
+                    </div>
+                    <div class="summary-chip red">
+                        <span>Không đi được:</span> <strong id="count-declined">0</strong>
+                    </div>
+                    <div class="summary-chip blue">
+                        <span>Tổng số người:</span> <strong id="count-total-people">0</strong>
+                    </div>
+                </div>
+
+                <div class="rsvp-table-wrapper">
+                    <table class="rsvp-table">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Họ & Tên</th>
+                                <th>SĐT / Zalo</th>
+                                <th>Trạng Thái</th>
+                                <th>Đi Cùng</th>
+                                <th>After Party</th>
+                                <th>Lời Chúc / Ghi Chú</th>
+                            </tr>
+                        </thead>
+                        <tbody id="rsvp-table-body">
+                            <!-- Populated dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer flex-between">
+                <button id="btn-clear-rsvp" class="btn-danger-outline">
+                    <i class="fa-solid fa-trash-can"></i> Xóa Tất Cả Dữ Liệu
+                </button>
+                <button id="btn-copy-rsvp" class="btn-secondary">
+                    <i class="fa-solid fa-copy"></i> Sao Chép Danh Sách
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SHARE LINK MODAL -->
+    <div id="share-modal" class="modal-overlay hidden">
+        <div class="modal-content share-content">
+            <div class="modal-header">
+                <h3><i class="fa-solid fa-share-nodes"></i> CHIA SẺ THIỆP MỜI</h3>
+                <button class="close-modal" id="btn-close-share-modal">&times;</button>
+            </div>
+            <div class="modal-body text-center">
+                <p>Gửi đường link hoặc mã QR bên dưới cho bạn bè nhé!</p>
+
+                <div class="qr-container" id="qr-container">
+                    <!-- Dynamic QR code generated with API -->
+                    <img id="qr-code-img" src="" alt="Mã QR Thiệp Mời">
+                </div>
+
+                <div class="share-link-input">
+                    <input type="text" id="share-url-input" readonly>
+                    <button id="btn-copy-link" class="btn-primary">
+                        <i class="fa-solid fa-copy"></i> Copy Link
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
+
+    <!-- Application Script -->
+    <script src="script.js"></script>
+</body>
+</html>
