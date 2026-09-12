@@ -1393,18 +1393,279 @@ body:not(.music-playing) .music-wave span {
     border-radius: 8px;
 }
 
-/* 14. RESPONSIVE MEDIA QUERIES */
+/* 14. COMPREHENSIVE MOBILE RESPONSIVE DESIGN */
 @media (max-width: 768px) {
-    .main-title { font-size: 2.1rem; }
-    .graduate-profile { flex-direction: column; text-align: center; gap: 15px; }
-    .graduate-major, .graduate-school { justify-content: center; }
-    .event-details-grid { grid-template-columns: 1fr; }
-    .form-row, .radio-cards { grid-template-columns: 1fr; }
-    .envelope { width: 300px; height: 200px; }
-    .flap { border-left-width: 150px; border-right-width: 150px; border-top-width: 110px; }
-    .pocket { border-left-width: 150px; border-right-width: 150px; border-bottom-width: 110px; }
-    .top-controls { top: 10px; right: 10px; }
-    .control-btn span { display: none; }
-    .control-btn { padding: 10px 12px; }
-    .invitation-card { padding: 25px 15px; }
+    .app-container {
+        padding: 10px;
+    }
+
+    /* Top Controls Floating Bar */
+    .top-controls {
+        top: 12px;
+        right: 12px;
+        gap: 8px;
+    }
+    
+    .control-btn {
+        padding: 8px 14px;
+        font-size: 0.85rem;
+    }
+
+    /* 3D Envelope Responsive */
+    .envelope {
+        width: 320px;
+        height: 220px;
+    }
+
+    .flap.top-flap {
+        height: 138px;
+    }
+
+    .pocket {
+        height: 145px;
+    }
+
+    .letter-preview {
+        top: 40px;
+        left: 16px;
+        right: 16px;
+        height: 145px;
+        padding: 12px;
+    }
+
+    .preview-name {
+        font-size: 1.1rem;
+    }
+
+    .seal {
+        width: 72px;
+        height: 72px;
+    }
+
+    .seal i {
+        font-size: 1.4rem;
+    }
+
+    .seal-text {
+        font-size: 0.6rem;
+    }
+
+    /* Invitation Card Display */
+    .card-section {
+        padding: 10px 0 40px 0;
+    }
+
+    .invitation-card {
+        padding: 24px 16px;
+        border-radius: 18px;
+        margin: 0 auto 30px auto;
+    }
+
+    .card-header {
+        margin-bottom: 20px;
+    }
+
+    .sub-title {
+        font-size: 0.85rem;
+        letter-spacing: 1.5px;
+    }
+
+    .main-title {
+        font-size: 1.85rem;
+        letter-spacing: 1px;
+    }
+
+    .graduate-profile {
+        flex-direction: column;
+        text-align: center;
+        gap: 14px;
+        padding: 18px 14px;
+    }
+
+    .avatar-container {
+        width: 120px;
+        height: 120px;
+    }
+
+    .graduate-name {
+        font-size: 1.35rem;
+        margin-bottom: 6px;
+    }
+
+    .graduate-major, .graduate-school {
+        justify-content: center;
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+
+    .invitation-body {
+        margin: 20px 0;
+    }
+
+    .greeting-text {
+        font-size: 1.1rem;
+    }
+
+    .body-message {
+        font-size: 0.92rem;
+        line-height: 1.7;
+        text-align: left;
+    }
+
+    .event-details-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .detail-card {
+        padding: 14px 16px;
+    }
+
+    .detail-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.1rem;
+    }
+
+    .detail-label {
+        font-size: 0.72rem;
+    }
+
+    .detail-value {
+        font-size: 1rem;
+    }
+
+    .detail-sub {
+        font-size: 0.82rem;
+    }
+
+    .signature-box {
+        margin-top: 15px;
+    }
+
+    .sig-note {
+        font-size: 1rem;
+    }
+
+    /* Section Containers */
+    .section-container {
+        padding: 22px 16px;
+        border-radius: 18px;
+        margin-bottom: 24px;
+    }
+
+    .section-title {
+        font-size: 1.25rem;
+    }
+
+    .section-subtitle {
+        font-size: 0.88rem;
+    }
+
+    /* Countdown Timer Responsive */
+    .countdown-timer {
+        gap: 6px;
+        justify-content: center;
+    }
+
+    .time-box {
+        min-width: 62px;
+        padding: 10px 6px;
+        border-radius: 12px;
+    }
+
+    .number {
+        font-size: 1.4rem;
+    }
+
+    .unit {
+        font-size: 0.65rem;
+    }
+
+    .time-sep {
+        font-size: 1.2rem;
+    }
+
+    .calendar-add-btn .btn-secondary {
+        width: 100%;
+        padding: 12px;
+        font-size: 0.88rem;
+        justify-content: center;
+    }
+
+    /* Agenda Timeline Responsive */
+    .timeline-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        padding: 14px;
+    }
+
+    .time-badge {
+        min-width: unset;
+        align-self: flex-start;
+        font-size: 0.8rem;
+        padding: 4px 10px;
+    }
+
+    .timeline-content h4 {
+        font-size: 0.98rem;
+    }
+
+    .timeline-content p {
+        font-size: 0.85rem;
+    }
+
+    /* Map Card Responsive */
+    .map-card {
+        padding: 16px;
+    }
+
+    .map-info h4 {
+        font-size: 1.05rem;
+    }
+
+    .map-info p {
+        font-size: 0.88rem;
+    }
+
+    .map-actions .btn-primary {
+        width: 100%;
+        justify-content: center;
+        padding: 13px 18px;
+        font-size: 0.9rem;
+    }
+}
+
+/* Extra Small Screens (Mobile < 400px) */
+@media (max-width: 400px) {
+    .envelope {
+        width: 290px;
+        height: 200px;
+    }
+
+    .flap.top-flap {
+        height: 125px;
+    }
+
+    .pocket {
+        height: 130px;
+    }
+
+    .main-title {
+        font-size: 1.6rem;
+    }
+
+    .time-box {
+        min-width: 54px;
+        padding: 8px 4px;
+    }
+
+    .number {
+        font-size: 1.25rem;
+    }
+
+    .time-sep {
+        display: none;
+    }
 }
