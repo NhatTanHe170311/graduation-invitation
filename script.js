@@ -137,19 +137,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 5. CONFIGURATION & DOM BINDING ---
     function applyConfigToDOM(config) {
-        displayName.textContent = config.name;
-        const previewName = document.querySelector('.preview-name');
-        if (previewName) previewName.textContent = config.name;
-        displayMajor.innerHTML = `<i class="fa-solid fa-book-open"></i> ${config.major}`;
-        displaySchool.innerHTML = `<i class="fa-solid fa-university"></i> ${config.school}`;
-        if (config.avatar) displayAvatar.src = config.avatar;
-        displayDate.textContent = config.dateStr;
-        const timeEl = document.getElementById('display-time');
-        if (timeEl) timeEl.textContent = config.timeStr;
-        displayVenue.textContent = config.venue;
-        displayAddress.textContent = config.address;
-        displayMessage.textContent = config.message;
-        displaySignature.textContent = config.name;
+        if (!config) return;
+        const displayNameEl = document.getElementById('display-name');
+        const displayAvatarEl = document.getElementById('display-avatar');
+        const displayMajorEl = document.getElementById('display-major');
+        const displaySchoolEl = document.getElementById('display-school');
+        const displayDateEl = document.getElementById('display-date');
+        const displayTimeEl = document.getElementById('display-time');
+        const displayVenueEl = document.getElementById('display-venue');
+        const displayAddressEl = document.getElementById('display-address');
+        const displayMessageEl = document.getElementById('display-message');
+        const displaySignatureEl = document.getElementById('display-signature');
+        const previewNameEl = document.querySelector('.preview-name');
+
+        if (displayNameEl) displayNameEl.textContent = config.name;
+        if (previewNameEl) previewNameEl.textContent = config.name;
+        if (displayMajorEl) displayMajorEl.innerHTML = `<i class="fa-solid fa-book-open"></i> ${config.major}`;
+        if (displaySchoolEl) displaySchoolEl.innerHTML = `<i class="fa-solid fa-university"></i> ${config.school}`;
+        if (displayAvatarEl && config.avatar) displayAvatarEl.src = config.avatar;
+        if (displayDateEl) displayDateEl.textContent = config.dateStr;
+        if (displayTimeEl) displayTimeEl.textContent = config.timeStr;
+        if (displayVenueEl) displayVenueEl.textContent = config.venue;
+        if (displayAddressEl) displayAddressEl.textContent = config.address;
+        if (displayMessageEl) displayMessageEl.textContent = config.message;
+        if (displaySignatureEl) displaySignatureEl.textContent = config.name;
 
         // Map Info
         const mapVenueTitle = document.getElementById('map-venue-title');
