@@ -7,8 +7,31 @@
     --font-heading: 'Playfair Display', Georgia, serif;
     --font-body: 'Be Vietnam Pro', 'Montserrat', sans-serif;
     --font-handwriting: 'Dancing Script', cursive;
+}
 
-    /* Theme Default: Royal Gold & Navy */
+/* Theme Default: FPT University (Orange & Gold) */
+body.theme-fpt, body {
+    --bg-main: #0E131F;
+    --bg-card: rgba(26, 32, 48, 0.88);
+    --bg-card-solid: #1A2030;
+    --text-primary: #FFFFFF;
+    --text-secondary: #E2E8F0;
+    --text-muted: #94A3B8;
+    
+    --accent-gold: #F36F21;
+    --accent-gold-light: #FFC107;
+    --accent-gold-glow: rgba(243, 111, 33, 0.45);
+    --accent-gradient: linear-gradient(135deg, #F36F21 0%, #FF8800 40%, #FFC107 100%);
+    
+    --border-gold: rgba(243, 111, 33, 0.4);
+    --shadow-glow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(243, 111, 33, 0.3);
+    --card-radius: 20px;
+    --transition-fast: 0.25s ease;
+    --transition-smooth: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Theme 2: Royal Gold & Navy */
+body.theme-gold {
     --bg-main: #0B1325;
     --bg-card: rgba(18, 28, 54, 0.85);
     --bg-card-solid: #121C36;
@@ -28,7 +51,7 @@
     --transition-smooth: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* Theme 2: Burgundy Red */
+/* Theme 3: Burgundy Red */
 body.theme-burgundy {
     --bg-main: #23080A;
     --bg-card: rgba(53, 15, 18, 0.88);

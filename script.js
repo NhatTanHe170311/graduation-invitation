@@ -5,17 +5,17 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- 1. INITIAL STATE & CONFIGURATION ---
     const defaultConfig = {
-        name: 'NGUYỄN VĂN AN',
-        major: 'Ngành Công Nghệ Thông Tin',
-        school: 'Trường Đại học Bách Khoa - ĐHQG TP.HCM',
+        name: 'Nguyễn Nhật Tân - HE170311',
+        major: 'Khóa Sinh Viên 2020 - 2026',
+        school: 'TRƯỜNG ĐẠI HỌC FPT (FPT UNIVERSITY)',
         avatar: 'assets/graduate.png',
-        dateStr: 'Thứ Bảy, 15/10/2026',
-        timeStr: '08:00 - 11:30 AM',
-        isoDate: '2026-10-15T08:00',
-        venue: 'Hội trường A5 - Trường Đại Học Bách Khoa',
-        address: '268 Lý Thường Kiệt, Phường 14, Quận 10, TP. Hồ Chí Minh',
-        message: 'Sau hành trình nỗ lực học tập và rèn luyện tại giảng đường đại học, An rất hạnh phúc và vinh dự được nhận tấm bằng cử nhân. Sự có mặt và những lời chúc của bạn sẽ là niềm vui trọn vẹn nhất đối với An trong ngày trọng đại này!',
-        theme: 'theme-gold'
+        dateStr: 'Thứ Tư, 16/09/2026',
+        timeStr: '13:00 - 17:00',
+        isoDate: '2026-09-16T13:00',
+        venue: 'Hội trường MMH',
+        address: 'Trung tâm Hội nghị Quốc gia, Cổng số 1, Đại lộ Thăng Long, Nam Từ Liêm, Hà Nội',
+        message: 'Năm 2026 đánh dấu cột mốc 20 năm hình thành và phát triển của Trường Đại học FPT. Lễ Tốt nghiệp năm nay càng thêm ý nghĩa khi tuổi 20 của FPTU cũng là lúc một thế hệ sinh viên khép lại hành trình học tập tại giảng đường, sẵn sàng bước tới chặng đường mới. Để cùng ghi dấu khoảnh khắc đặc biệt ấy, Tân trân trọng kính mời bạn tới tham dự và chung vui cùng Tân!',
+        theme: 'theme-fpt'
     };
 
     let appConfig = JSON.parse(localStorage.getItem('grad_invitation_config')) || defaultConfig;
