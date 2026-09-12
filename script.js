@@ -81,7 +81,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const envelopeEl = document.querySelector('.envelope');
 
     window.openEnvelope = function(e) {
-        if (e && e.stopPropagation) e.stopPropagation();
+        if (e) {
+            if (e.stopPropagation) e.stopPropagation();
+            if (e.preventDefault) e.preventDefault();
+        }
 
         const envWrap = document.getElementById('envelope-wrapper');
         const envSec = document.getElementById('envelope-section');
@@ -89,31 +92,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (envWrap) envWrap.classList.add('open');
 
-        // Failsafe Confetti
-        try {
-            if (typeof triggerConfetti === 'function') triggerConfetti();
-        } catch (err) {
-            console.log('Confetti playback skipped:', err);
-        }
+        // Failsafe Confetti & Music
+        try { if (typeof triggerConfetti === 'function') triggerConfetti(); } catch (err) {}
+        try { if (typeof toggleMusic === 'function') toggleMusic(true); } catch (err) {}
 
-        // Failsafe Audio Synth
-        try {
-            if (typeof toggleMusic === 'function') toggleMusic(true);
-        } catch (err) {
-            console.log('Audio autoplay blocked in incognito:', err);
-        }
-
-        // Always reveal invitation card section smoothly
+        // Immediate & Failsafe DOM Transition
         setTimeout(() => {
             if (envSec) envSec.style.display = 'none';
-            if (cardSec) cardSec.classList.remove('hidden');
+            if (cardSec) {
+                cardSec.classList.remove('hidden');
+                cardSec.style.display = 'block';
+                cardSec.style.opacity = '1';
+            }
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 600);
+        }, 500);
     };
 
-    if (envelopeWrapper) envelopeWrapper.addEventListener('click', window.openEnvelope);
-    if (envelopeSeal) envelopeSeal.addEventListener('click', window.openEnvelope);
-    if (envelopeEl) envelopeEl.addEventListener('click', window.openEnvelope);
+    if (envelopeWrapper) envelopeWrapper.onclick = window.openEnvelope;
+    if (envelopeSeal) envelopeSeal.onclick = window.openEnvelope;
+    if (envelopeEl) envelopeEl.onclick = window.openEnvelope;
 
     // --- 5. CONFIGURATION & DOM BINDING ---
     function applyConfigToDOM(config) {

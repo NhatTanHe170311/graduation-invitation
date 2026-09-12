@@ -729,14 +729,9 @@ body:not(.music-playing) .music-wave span {
     margin-top: 35px;
     box-shadow: var(--shadow-glow);
     backdrop-filter: blur(12px);
-    opacity: 0;
-    transform: translateY(35px);
-    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.section-container.visible {
     opacity: 1;
     transform: translateY(0);
+    transition: all 0.4s ease;
 }
 
 .section-title {
