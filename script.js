@@ -16,14 +16,15 @@ document.addEventListener('DOMContentLoaded', () => {
         address: 'Trung tâm Hội nghị Quốc gia, Cổng số 1, Đại lộ Thăng Long, Nam Từ Liêm, Hà Nội',
         message: 'Năm 2026 đánh dấu cột mốc 20 năm hình thành và phát triển của Trường Đại học FPT. Lễ Tốt nghiệp năm nay càng thêm ý nghĩa khi tuổi 20 của FPTU cũng là lúc một thế hệ sinh viên khép lại hành trình học tập tại giảng đường, sẵn sàng bước tới chặng đường mới. Để cùng ghi dấu khoảnh khắc đặc biệt ấy, Tân trân trọng kính mời bạn tới tham dự và chung vui cùng Tân!',
         theme: 'theme-fpt',
-        version: 'v2_fpt'
+        version: 'v3_real_photo'
     };
 
     let savedConfig = JSON.parse(localStorage.getItem('grad_invitation_config'));
-    if (!savedConfig || !savedConfig.version || savedConfig.name.includes('NGUYỄN VĂN AN') || savedConfig.version !== 'v2_fpt') {
+    if (!savedConfig || !savedConfig.version || savedConfig.name.includes('NGUYỄN VĂN AN') || savedConfig.version !== 'v3_real_photo') {
         savedConfig = defaultConfig;
         localStorage.setItem('grad_invitation_config', JSON.stringify(defaultConfig));
     }
+    savedConfig.avatar = 'assets/graduate.png';
     let appConfig = savedConfig;
     function getSampleRSVPs() {
         return [
