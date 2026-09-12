@@ -576,9 +576,9 @@ body:not(.music-playing) .music-wave span {
     gap: 30px;
     margin-bottom: 30px;
     padding: 20px;
-    background: #FFF9F5;
+    background: var(--bg-card-solid, rgba(15, 23, 42, 0.7));
     border-radius: 16px;
-    border: 1px solid rgba(243, 111, 33, 0.15);
+    border: 1px solid var(--border-gold);
 }
 
 .avatar-container {
@@ -696,7 +696,7 @@ body:not(.music-playing) .music-wave span {
 }
 
 .detail-card {
-    background: #FFF9F5;
+    background: var(--bg-card-solid, rgba(15, 23, 42, 0.7));
     border: 1px solid var(--border-gold);
     border-radius: 12px;
     padding: 16px;
@@ -804,27 +804,27 @@ body:not(.music-playing) .music-wave span {
 }
 
 .time-box {
-    background: #FFF5EE;
+    background: var(--bg-card-solid, rgba(15, 23, 42, 0.7));
     border: 1px solid var(--border-gold);
     border-radius: 14px;
     padding: 15px;
     min-width: 85px;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(243, 111, 33, 0.08);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
 }
 
 .time-box .number {
     font-family: var(--font-heading);
     font-size: 2.4rem;
     font-weight: 700;
-    color: var(--accent-gold-light);
+    color: var(--accent-gold);
     display: block;
     line-height: 1;
 }
 
 .time-box .unit {
     font-size: 0.7rem;
-    color: var(--text-muted);
+    color: var(--text-secondary);
     letter-spacing: 1.5px;
     font-weight: 700;
     margin-top: 6px;
