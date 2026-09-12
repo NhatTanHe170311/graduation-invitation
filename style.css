@@ -357,17 +357,18 @@ body:not(.music-playing) .music-wave span {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90px;
-    height: 90px;
+    width: 96px;
+    height: 96px;
     border-radius: 50%;
-    border: 2px solid #F36F21;
-    animation: ringPulse 2s infinite ease-out;
+    border: 3px solid #FFC107;
+    animation: ringPulse 1.8s infinite ease-out;
     pointer-events: none;
+    box-shadow: 0 0 15px rgba(255, 193, 7, 0.6);
 }
 
 @keyframes ringPulse {
-    0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.8; }
-    100% { transform: translate(-50%, -50%) scale(1.4); opacity: 0; }
+    0% { transform: translate(-50%, -50%) scale(0.85); opacity: 0.9; }
+    100% { transform: translate(-50%, -50%) scale(1.45); opacity: 0; }
 }
 
 .envelope-wrapper:hover .seal {

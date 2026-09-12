@@ -77,23 +77,33 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollObserver();
 
     // --- 4. ENVELOPE OPEN ANIMATION ---
-    if (envelopeWrapper) {
-        envelopeWrapper.addEventListener('click', openEnvelope);
-    }
+    const envelopeSeal = document.getElementById('envelope-seal');
+    const envelopeEl = document.querySelector('.envelope');
+    let isEnvelopeOpened = false;
 
-    function openEnvelope() {
-        envelopeWrapper.classList.add('open');
+    function openEnvelope(e) {
+        if (isEnvelopeOpened) return;
+        isEnvelopeOpened = true;
+        if (e && e.preventDefault) e.preventDefault();
+
+        if (envelopeWrapper) envelopeWrapper.classList.add('open');
         triggerConfetti();
 
         // Start background ambient music synth
         toggleMusic(true);
 
         setTimeout(() => {
-            envelopeSection.style.display = 'none';
-            cardSection.classList.remove('hidden');
+            if (envelopeSection) envelopeSection.style.display = 'none';
+            if (cardSection) cardSection.classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 900);
+        }, 800);
     }
+
+    ['click', 'touchstart', 'pointerdown'].forEach(evtType => {
+        if (envelopeWrapper) envelopeWrapper.addEventListener(evtType, openEnvelope, { passive: false });
+        if (envelopeSeal) envelopeSeal.addEventListener(evtType, openEnvelope, { passive: false });
+        if (envelopeEl) envelopeEl.addEventListener(evtType, openEnvelope, { passive: false });
+    });
 
     // --- 5. CONFIGURATION & DOM BINDING ---
     function applyConfigToDOM(config) {
