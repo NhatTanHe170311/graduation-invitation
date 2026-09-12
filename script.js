@@ -546,35 +546,118 @@ document.addEventListener('DOMContentLoaded', () => {
                 audioCtx.resume();
             }
 
-            const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99]; // C, E, G, C, E, G
-            let step = 0;
+            // Pachelbel's Canon in D major - Classical Symphony Graduation Anthem arrangement
+            // Chords: D - A - Bm - F#m - G - D - G - A
+            const canonProgression = [
+                { bass: 146.83, chord: [293.66, 369.99, 440.00], melody: [739.99, 659.25, 587.33, 554.37] }, // D4, F#4, A4 | F#5, E5, D5, C#5
+                { bass: 110.00, chord: [220.00, 277.18, 329.63], melody: [493.88, 440.00, 493.88, 554.37] }, // A3, C#4, E4 | B4, A4, B4, C#5
+                { bass: 123.47, chord: [246.94, 293.66, 369.99], melody: [587.33, 554.37, 493.88, 440.00] }, // B3, D4, F#4 | D5, C#5, B4, A4
+                { bass: 92.50,  chord: [185.00, 220.00, 277.18], melody: [392.00, 369.99, 392.00, 440.00] }, // F#3, A3, C#4 | G4, F#4, G4, A4
+                { bass: 98.00,  chord: [196.00, 246.94, 293.66], melody: [392.00, 440.00, 493.88, 554.37] }, // G3, B3, D4  | G4, A4, B4, C#5
+                { bass: 146.83, chord: [293.66, 369.99, 440.00], melody: [587.33, 493.88, 587.33, 659.25] }, // D4, F#4, A4 | D5, B4, D5, E5
+                { bass: 98.00,  chord: [196.00, 246.94, 293.66], melody: [739.99, 659.25, 739.99, 880.00] }, // G3, B3, D4  | F#5, E5, F#5, A5
+                { bass: 110.00, chord: [220.00, 277.18, 329.63], melody: [739.99, 659.25, 587.33, 554.37] }  // A3, C#4, E4 | F#5, E5, D5, C#5
+            ];
+
+            let measure = 0;
+            let noteInMeasure = 0;
 
             if (musicInterval) clearInterval(musicInterval);
+
+            // Master Gain & Reverb Filter for Grand Classical Hall acoustics
+            const masterGain = audioCtx.createGain();
+            masterGain.gain.setValueAtTime(0.22, audioCtx.currentTime);
+
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(2400, audioCtx.currentTime);
+
+            masterGain.connect(filter);
+            filter.connect(audioCtx.destination);
 
             musicInterval = setInterval(() => {
                 if (!isMusicPlaying) return;
 
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
+                const currProg = canonProgression[measure % canonProgression.length];
+                const now = audioCtx.currentTime;
 
-                const freq = notes[step % notes.length];
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+                // 1. Voice 1: Cello/Contrabass (Warm deep bass sustained at beat 0)
+                if (noteInMeasure === 0) {
+                    const bassOsc = audioCtx.createOscillator();
+                    const bassGain = audioCtx.createGain();
+                    bassOsc.type = 'triangle';
+                    bassOsc.frequency.setValueAtTime(currProg.bass, now);
+                    bassGain.gain.setValueAtTime(0.18, now);
+                    bassGain.gain.exponentialRampToValueAtTime(0.001, now + 1.9);
+                    bassOsc.connect(bassGain);
+                    bassGain.connect(masterGain);
+                    bassOsc.start(now);
+                    bassOsc.stop(now + 2.0);
 
-                gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+                    // Voice 2: Orchestral String Harmony Triad (Soft pad)
+                    currProg.chord.forEach((freq) => {
+                        const strOsc = audioCtx.createOscillator();
+                        const strGain = audioCtx.createGain();
+                        strOsc.type = 'sine';
+                        strOsc.frequency.setValueAtTime(freq, now);
+                        strGain.gain.setValueAtTime(0.06, now);
+                        strGain.gain.exponentialRampToValueAtTime(0.001, now + 1.8);
+                        strOsc.connect(strGain);
+                        strGain.connect(masterGain);
+                        strOsc.start(now);
+                        strOsc.stop(now + 1.9);
+                    });
+                }
 
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
+                // 3. Voice 3: Lead Violin Solo Melody Note
+                const melodyFreq = currProg.melody[noteInMeasure % currProg.melody.length];
+                const violinOsc = audioCtx.createOscillator();
+                const violinGain = audioCtx.createGain();
 
-                osc.start();
-                osc.stop(audioCtx.currentTime + 1.2);
+                violinOsc.type = 'sine';
+                violinOsc.frequency.setValueAtTime(melodyFreq, now);
 
-                step++;
-            }, 500);
+                // Gentle Violin vibrato
+                const lfo = audioCtx.createOscillator();
+                const lfoGain = audioCtx.createGain();
+                lfo.frequency.value = 5.5; // 5.5 Hz vibrato
+                lfoGain.gain.value = 2.5;  // pitch depth
+                lfo.connect(violinOsc.frequency);
+                lfo.start(now);
+                lfo.stop(now + 0.55);
+
+                violinGain.gain.setValueAtTime(0.01, now);
+                violinGain.gain.linearRampToValueAtTime(0.12, now + 0.08); // soft bow attack
+                violinGain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+
+                violinOsc.connect(violinGain);
+                violinGain.connect(masterGain);
+
+                violinOsc.start(now);
+                violinOsc.stop(now + 0.55);
+
+                // 4. Voice 4: Concert Harp Arpeggio (Plucked note)
+                const harpFreq = currProg.chord[noteInMeasure % currProg.chord.length] * 2;
+                const harpOsc = audioCtx.createOscillator();
+                const harpGain = audioCtx.createGain();
+                harpOsc.type = 'triangle';
+                harpOsc.frequency.setValueAtTime(harpFreq, now);
+                harpGain.gain.setValueAtTime(0.05, now);
+                harpGain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+                harpOsc.connect(harpGain);
+                harpGain.connect(masterGain);
+                harpOsc.start(now);
+                harpOsc.stop(now + 0.45);
+
+                noteInMeasure++;
+                if (noteInMeasure >= 4) {
+                    noteInMeasure = 0;
+                    measure++;
+                }
+            }, 450);
 
         } catch (e) {
-            console.log('Audio API unsupported or blocked');
+            console.log('Audio API unsupported or blocked', e);
         }
     }
 
