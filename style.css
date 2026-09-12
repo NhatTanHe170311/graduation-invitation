@@ -9,25 +9,43 @@
     --font-handwriting: 'Dancing Script', cursive;
 }
 
-/* Theme Default: FPT University (Orange & Gold) */
+/* Theme Default: FPT Bright Sunshine (Trắng Ngọc Trai & Cam FPT Tươi Sáng Rực Rỡ) */
 body.theme-fpt, body {
-    --bg-main: #0E131F;
-    --bg-card: rgba(26, 32, 48, 0.88);
-    --bg-card-solid: #1A2030;
-    --text-primary: #FFFFFF;
-    --text-secondary: #E2E8F0;
-    --text-muted: #94A3B8;
+    --bg-main: #FFF8F3;
+    --bg-card: #FFFFFF;
+    --bg-card-solid: #FFFFFF;
+    --text-primary: #1E293B;
+    --text-secondary: #475569;
+    --text-muted: #64748B;
     
     --accent-gold: #F36F21;
-    --accent-gold-light: #FFC107;
-    --accent-gold-glow: rgba(243, 111, 33, 0.45);
-    --accent-gradient: linear-gradient(135deg, #F36F21 0%, #FF8800 40%, #FFC107 100%);
+    --accent-gold-light: #E65100;
+    --accent-gold-glow: rgba(243, 111, 33, 0.3);
+    --accent-gradient: linear-gradient(135deg, #F36F21 0%, #FF8800 50%, #FFA726 100%);
     
-    --border-gold: rgba(243, 111, 33, 0.4);
-    --shadow-glow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 25px rgba(243, 111, 33, 0.3);
-    --card-radius: 20px;
+    --border-gold: rgba(243, 111, 33, 0.35);
+    --shadow-glow: 0 20px 45px rgba(243, 111, 33, 0.14), 0 4px 20px rgba(0, 0, 0, 0.03);
+    --card-radius: 24px;
     --transition-fast: 0.25s ease;
     --transition-smooth: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Bright Pearl & Gold Theme */
+body.theme-bright-gold {
+    --bg-main: #FAF8F5;
+    --bg-card: #FFFFFF;
+    --bg-card-solid: #FFFFFF;
+    --text-primary: #0F172A;
+    --text-secondary: #334155;
+    --text-muted: #64748B;
+    
+    --accent-gold: #D4AF37;
+    --accent-gold-light: #B38728;
+    --accent-gold-glow: rgba(212, 175, 55, 0.3);
+    --accent-gradient: linear-gradient(135deg, #D4AF37 0%, #F3E5AB 50%, #AA771C 100%);
+    
+    --border-gold: rgba(212, 175, 55, 0.4);
+    --shadow-glow: 0 20px 45px rgba(212, 175, 55, 0.15), 0 4px 20px rgba(0, 0, 0, 0.03);
 }
 
 /* Theme 2: Royal Gold & Navy */
@@ -138,9 +156,9 @@ body {
 }
 
 .control-btn {
-    background: rgba(15, 23, 42, 0.75);
+    background: rgba(255, 255, 255, 0.92);
     border: 1px solid var(--border-gold);
-    color: var(--text-primary);
+    color: #1E293B;
     padding: 10px 18px;
     border-radius: 30px;
     font-size: 0.9rem;
@@ -150,7 +168,7 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 15px rgba(243, 111, 33, 0.12);
     transition: all var(--transition-fast);
 }
 
@@ -162,7 +180,7 @@ body {
 
 .control-btn.accent-btn {
     background: var(--accent-gradient);
-    color: #0F172A;
+    color: #FFFFFF;
     border: none;
     font-weight: 700;
 }
@@ -217,10 +235,10 @@ body:not(.music-playing) .music-wave span {
 .envelope {
     width: 340px;
     height: 230px;
-    background: #1B264F;
-    border-radius: 12px;
+    background: #FFF3EB;
+    border-radius: 14px;
     position: relative;
-    box-shadow: var(--shadow-glow);
+    box-shadow: 0 20px 45px rgba(243, 111, 33, 0.18), 0 5px 15px rgba(0, 0, 0, 0.05);
     transform-style: preserve-3d;
     transition: transform var(--transition-smooth);
     border: 2px solid var(--accent-gold);
@@ -238,7 +256,7 @@ body:not(.music-playing) .music-wave span {
     height: 0;
     border-left: 170px solid transparent;
     border-right: 170px solid transparent;
-    border-top: 130px solid #273469;
+    border-top: 130px solid #FF7A29;
     transform-origin: top;
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 5;
@@ -250,9 +268,9 @@ body:not(.music-playing) .music-wave span {
     left: 0;
     width: 0;
     height: 0;
-    border-left: 170px solid #141D3B;
-    border-right: 170px solid #141D3B;
-    border-bottom: 130px solid #1B264F;
+    border-left: 170px solid #F36F21;
+    border-right: 170px solid #F36F21;
+    border-bottom: 130px solid #FF7A29;
     border-radius: 0 0 12px 12px;
     z-index: 4;
 }
@@ -387,15 +405,15 @@ body:not(.music-playing) .music-wave span {
 }
 
 .action-chip {
-    background: rgba(255, 255, 255, 0.08);
+    background: #FFFFFF;
     border: 1px solid var(--border-gold);
     color: var(--text-primary);
     padding: 8px 16px;
     border-radius: 20px;
     font-size: 0.88rem;
-    font-weight: 500;
+    font-weight: 600;
     cursor: pointer;
-    backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(243, 111, 33, 0.08);
     transition: all var(--transition-fast);
 }
 
@@ -479,9 +497,9 @@ body:not(.music-playing) .music-wave span {
     gap: 30px;
     margin-bottom: 30px;
     padding: 20px;
-    background: rgba(255, 255, 255, 0.03);
+    background: #FFF9F5;
     border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(243, 111, 33, 0.15);
 }
 
 .avatar-container {
@@ -599,7 +617,7 @@ body:not(.music-playing) .music-wave span {
 }
 
 .detail-card {
-    background: rgba(255, 255, 255, 0.04);
+    background: #FFF9F5;
     border: 1px solid var(--border-gold);
     border-radius: 12px;
     padding: 16px;
@@ -704,12 +722,13 @@ body:not(.music-playing) .music-wave span {
 }
 
 .time-box {
-    background: rgba(0, 0, 0, 0.3);
+    background: #FFF5EE;
     border: 1px solid var(--border-gold);
     border-radius: 14px;
     padding: 15px;
     min-width: 85px;
     text-align: center;
+    box-shadow: 0 4px 12px rgba(243, 111, 33, 0.08);
 }
 
 .time-box .number {
@@ -849,8 +868,8 @@ body:not(.music-playing) .music-wave span {
 .form-group input[type="datetime-local"],
 .form-group select,
 .form-group textarea {
-    background: rgba(0, 0, 0, 0.3);
-    border: 1px solid var(--border-gold);
+    background: #FFFFFF;
+    border: 1px solid #CBD5E1;
     color: var(--text-primary);
     padding: 12px 16px;
     border-radius: 10px;
