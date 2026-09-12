@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         savedConfig = defaultConfig;
         localStorage.setItem('grad_invitation_config', JSON.stringify(defaultConfig));
     }
+    let appConfig = savedConfig;
     function getSampleRSVPs() {
         return [
             { id: 1, name: 'Trần Minh Hoàng', phone: '0901234567', guests: 2, attendance: 'attending', afterparty: 'yes', note: 'Chúc mừng Tân nhé! Hẹn gặp ở trường!', createdAt: '10/09/2026' },
