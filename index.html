@@ -22,7 +22,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="style.css?v=8.0">
+    <link rel="stylesheet" href="style.css?v=9.0">
 </head>
 
 <body class="theme-fpt">
@@ -39,9 +39,6 @@
         </button>
         <button id="btn-customizer" class="control-btn accent-btn" title="Chỉnh sửa Thiệp (Dành cho Tân Cử nhân)">
             <i class="fa-solid fa-wand-magic-sparkles"></i> Sửa Thiệp
-        </button>
-        <button id="btn-view-rsvp" class="control-btn" title="Xem danh sách RSVP">
-            <i class="fa-solid fa-list-check"></i> Xem RSVP (<span id="rsvp-count">0</span>)
         </button>
     </div>
 
@@ -69,22 +66,6 @@
 
         <!-- 2. MAIN INVITATION CARD DISPLAY -->
         <section id="card-section" class="card-section hidden">
-
-            <!-- Floating Quick Nav Buttons -->
-            <div class="card-quick-actions">
-                <button class="action-chip" onclick="scrollToSection('rsvp-section')">
-                    <i class="fa-solid fa-paper-plane"></i> Xác Nhận Tham Dự
-                </button>
-                <button class="action-chip" onclick="scrollToSection('wishes-section')">
-                    <i class="fa-solid fa-heart"></i> Gửi Lời Chúc
-                </button>
-                <button class="action-chip" id="btn-export-card">
-                    <i class="fa-solid fa-download"></i> Tải Thiệp HD
-                </button>
-                <button class="action-chip" id="btn-share-link">
-                    <i class="fa-solid fa-share-nodes"></i> Chia Sẻ
-                </button>
-            </div>
 
             <!-- THE FORMAL INVITATION CARD (TARGET FOR CANVAS EXPORT) -->
             <div class="invitation-card" id="invitation-card">
@@ -262,146 +243,22 @@
                     </div>
                 </div>
 
-                <!-- 4.5 IMPORTANT GUIDELINES SECTION -->
-                <div class="section-container guidelines-container">
-                    <h3 class="section-title"><i class="fa-solid fa-triangle-exclamation"></i> LƯU Ý DÀNH CHO KHÁCH MỜI
-                    </h3>
-                    <ul class="guidelines-list"
-                        style="padding-left: 20px; line-height: 1.8; color: var(--text-secondary);">
-                        <li>🎟️ Mang theo vé mời tham dự để thực hiện thủ tục check-in tại sự kiện.</li>
-                        <li>👨‍👩‍👧 Mỗi sinh viên được mời <strong>tối đa 02 người thân</strong> tham dự cùng (Không
-                            đưa theo trẻ em dưới 06 tuổi và thú cưng).</li>
-                        <li>🚫 Không mang theo các vật dụng, chất dễ cháy nổ; không hút thuốc hoặc thuốc lá điện tử
-                            trong khuôn viên sự kiện.</li>
-                        <li>📧 Mọi thắc mắc vui lòng liên hệ Phòng Công tác Sinh viên qua email
-                            <strong>sro.hn@fpt.edu.vn</strong>.</li>
-                    </ul>
-                </div>
-
                 <!-- 5. LOCATION & MAP SECTION -->
                 <div class="section-container map-container">
                     <h3 class="section-title"><i class="fa-solid fa-map-location-dot"></i> BẢN ĐỒ & CHỈ ĐƯỜNG</h3>
                     <div class="map-card">
                         <div class="map-info">
-                            <h4 id="map-venue-title">Trường Đại học Bách Khoa TP.HCM</h4>
-                            <p id="map-address-text"><i class="fa-solid fa-location-dot"></i> 268 Lý Thường Kiệt, Phường
-                                14, Quận 10, TP. Hồ Chí Minh</p>
+                            <h4 id="map-venue-title">Hội trường MMH</h4>
+                            <p id="map-address-text"><i class="fa-solid fa-location-dot"></i> Trung tâm Hội nghị Quốc gia, Cổng số 1, Đại lộ Thăng Long, Nam Từ Liêm, Hà Nội</p>
                             <p><i class="fa-solid fa-square-parking"></i> Có bãi gửi xe máy & ô tô rộng rãi cho khách dự
                                 lễ</p>
                         </div>
                         <div class="map-actions">
-                            <a id="btn-open-map" href="https://maps.google.com/?q=268+Ly+Thuong+Kiet+Quan+10+TPHCM"
+                            <a id="btn-open-map" href="https://maps.google.com/?q=Trung+tam+Hoi+nghi+Quoc+gia+Ha+Noi"
                                 target="_blank" class="btn-primary">
                                 <i class="fa-solid fa-diamond-turn-right"></i> Mở Google Maps Chỉ Đường
                             </a>
                         </div>
-                    </div>
-                </div>
-
-                <!-- 6. RSVP FORM SECTION -->
-                <div class="section-container rsvp-section" id="rsvp-section">
-                    <h3 class="section-title"><i class="fa-solid fa-envelope-open-text"></i> XÁC NHẬN THAM DỰ (RSVP)
-                    </h3>
-                    <p class="section-subtitle">Vui lòng phản hồi trước ngày <strong>10/10/2026</strong> để An chuẩn bị
-                        đón tiếp chu đáo nhất nhé!</p>
-
-                    <form id="rsvp-form" class="rsvp-form">
-                        <div class="form-group">
-                            <label for="rsvp-name"><i class="fa-solid fa-user"></i> Họ và Tên của Bạn *</label>
-                            <input type="text" id="rsvp-name" required placeholder="Nhập tên của bạn...">
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="rsvp-phone"><i class="fa-solid fa-phone"></i> Số Điện Thoại / Zalo</label>
-                                <input type="tel" id="rsvp-phone" placeholder="Nhập SĐT của bạn...">
-                            </div>
-                            <div class="form-group">
-                                <label for="rsvp-guests"><i class="fa-solid fa-user-plus"></i> Số Người Đi Cùng</label>
-                                <select id="rsvp-guests">
-                                    <option value="1">1 người (Đi 1 mình)</option>
-                                    <option value="2">2 người (+1 bạn)</option>
-                                    <option value="3">3 người trở lên</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label><i class="fa-solid fa-circle-question"></i> Bạn Sẽ Tham Dự Chứ? *</label>
-                            <div class="radio-cards">
-                                <label class="radio-card active">
-                                    <input type="radio" name="attendance" value="attending" checked>
-                                    <div class="radio-content">
-                                        <i class="fa-solid fa-circle-check text-success"></i>
-                                        <strong>Chắc Chắn Tham Dự!</strong>
-                                        <span>Hẹn gặp An ở ngày trao bằng nhé!</span>
-                                    </div>
-                                </label>
-                                <label class="radio-card">
-                                    <input type="radio" name="attendance" value="declined">
-                                    <div class="radio-content">
-                                        <i class="fa-solid fa-face-frown text-muted"></i>
-                                        <strong>Rất Tiếc Không Đến Đượcc</strong>
-                                        <span>Gửi lời chúc mừng từ xa cho An nhé.</span>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="rsvp-afterparty"><i class="fa-solid fa-glass-cheers"></i> Tham Gia Tiệc Ăn Mừng
-                                (After Party)?</label>
-                            <select id="rsvp-afterparty">
-                                <option value="yes">Có, tớ sẽ tham gia tiệc sau lễ!</option>
-                                <option value="no">Chỉ tham dự lễ trao bằng & chụp ảnh</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="rsvp-note"><i class="fa-solid fa-comment-dots"></i> Lời Chúc Nhanh Cho Tân Cử
-                                Nhân</label>
-                            <textarea id="rsvp-note" rows="3"
-                                placeholder="Viết lời chúc hoặc ghi chú thêm cho An..."></textarea>
-                        </div>
-
-                        <button type="submit" class="btn-submit-rsvp">
-                            <i class="fa-solid fa-paper-plane"></i> GỬI XÁC NHẬN THAM DỰ
-                        </button>
-                    </form>
-                </div>
-
-                <!-- 7. WISHES BOARD / GUESTBOOK SECTION -->
-                <div class="section-container wishes-section" id="wishes-section">
-                    <h3 class="section-title"><i class="fa-solid fa-comments"></i> BỨC TƯỜNG LỜI CHÚC</h3>
-                    <p class="section-subtitle">Cùng gửi những lời chúc ý nghĩa nhất tới Tân Cử Nhân!</p>
-
-                    <!-- Quick Post Wish Box -->
-                    <div class="quick-wish-box">
-                        <div class="form-group">
-                            <input type="text" id="wish-author" placeholder="Tên của bạn..." required>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="wish-text" rows="2" placeholder="Nhập lời chúc mừng tới Tân Cử nhân..."
-                                required></textarea>
-                        </div>
-                        <div class="wish-options">
-                            <div class="sticker-selector">
-                                <span>Chọn icon:</span>
-                                <button type="button" class="sticker-btn active" data-sticker="🎓">🎓</button>
-                                <button type="button" class="sticker-btn" data-sticker="💐">💐</button>
-                                <button type="button" class="sticker-btn" data-sticker="🎉">🎉</button>
-                                <button type="button" class="sticker-btn" data-sticker="⭐">⭐</button>
-                                <button type="button" class="sticker-btn" data-sticker="🚀">🚀</button>
-                            </div>
-                            <button type="button" id="btn-post-wish" class="btn-primary">
-                                <i class="fa-solid fa-paper-plane"></i> Đăng Lời Chúc
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Wishes Wall Cards Container -->
-                    <div class="wishes-grid" id="wishes-grid">
-                        <!-- Wish items dynamically populated -->
                     </div>
                 </div>
 
