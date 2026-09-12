@@ -5,22 +5,21 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- 1. INITIAL STATE & CONFIGURATION ---
     const defaultConfig = {
-        name: 'Nguyễn Nhật Tân - HE170311',
-        major: 'Khóa Sinh Viên 2020 - 2026',
-        school: 'TRƯỜNG ĐẠI HỌC FPT (FPT UNIVERSITY)',
-        avatar: 'assets/graduate.png',
+        name: 'Nguyễn Nhật Tân',
+        major: 'Khóa Sinh Viên 2021 - 2025',
+        school: 'TRƯỜNG ĐẠI HỌC FPT',
+        avatar: 'assets/graduate.png?v=15.0',
         dateStr: 'Thứ Tư, 16/09/2026',
         timeStr: '13:00 - 17:00',
         isoDate: '2026-09-16T13:00',
         venue: 'Hội trường MMH',
-        address: 'Trung tâm Hội nghị Quốc gia, Cổng số 1, Đại lộ Thăng Long, Nam Từ Liêm, Hà Nội',
-        message: 'Năm 2026 đánh dấu cột mốc 20 năm hình thành và phát triển của Trường Đại học FPT. Lễ Tốt nghiệp năm nay càng thêm ý nghĩa khi tuổi 20 của FPTU cũng là lúc một thế hệ sinh viên khép lại hành trình học tập tại giảng đường, sẵn sàng bước tới chặng đường mới. Để cùng ghi dấu khoảnh khắc đặc biệt ấy, Tân trân trọng kính mời bạn tới tham dự và chung vui cùng Tân!',
+        address: 'Trung tâm Hội nghị Quốc gia, Cổng số 1, Đại lộ Thăng Long, Từ Liêm, Hà Nội',
+        message: 'Bốn năm đại học khép lại với đủ thăng trầm, deadline và cả vô vàn kỷ niệm đẹp không thể nào quên. Ngày nhận bằng tốt nghiệp sẽ càng trọn vẹn và ý nghĩa hơn nếu có sự hiện diện của mọi người. Tân thân mời bạn bè, người thân bớt chút thời gian ghé qua check-in, chụp cùng Tân vài kiểu ảnh và chung vui cùng Tân trong ngày đặc biệt này nhé! Hẹn gặp mọi người vào ngày đặc biệt này.',
         theme: 'theme-fpt',
-        version: 'v4_exact_photo'
+        version: 'v5_sync_html_text'
     };
 
     localStorage.removeItem('grad_invitation_config');
-    defaultConfig.avatar = 'assets/graduate.png?v=14.0';
     let appConfig = defaultConfig;
     localStorage.setItem('grad_invitation_config', JSON.stringify(defaultConfig));
     function getSampleRSVPs() {
