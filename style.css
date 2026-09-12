@@ -9,22 +9,30 @@
     --font-handwriting: 'Dancing Script', cursive;
 }
 
-/* Theme Default: FPT Bright Sunshine (Trắng Ngọc Trai & Cam FPT Tươi Sáng Rực Rỡ) */
-body.theme-fpt, body {
-    --bg-main: #FFF8F3;
-    --bg-card: #FFFFFF;
-    --bg-card-solid: #FFFFFF;
-    --text-primary: #1E293B;
-    --text-secondary: #475569;
-    --text-muted: #64748B;
+/* Theme Default: Royal Gold & Deep Navy (Phong Cách Trưởng Thành, Chững Chạc & Sang Trọng) */
+body.theme-gold, body {
+    --bg-main: #0B132B;
+    --bg-card: rgba(28, 37, 65, 0.92);
+    --bg-card-solid: #1C2541;
+    --text-primary: #FFFFFF;
+    --text-secondary: #CBD5E1;
+    --text-muted: #94A3B8;
     
-    --accent-gold: #F36F21;
-    --accent-gold-light: #E65100;
-    --accent-gold-glow: rgba(243, 111, 33, 0.3);
-    --accent-gradient: linear-gradient(135deg, #F36F21 0%, #FF8800 50%, #FFA726 100%);
+    --accent-gold: #D4AF37;
+    --accent-gold-light: #F5E096;
+    --accent-gold-glow: rgba(212, 175, 55, 0.4);
+    --accent-gradient: linear-gradient(135deg, #BF953F 0%, #FCF6BA 25%, #B38728 50%, #FBF5B7 75%, #AA771C 100%);
     
-    --border-gold: rgba(243, 111, 33, 0.35);
-    --shadow-glow: 0 20px 45px rgba(243, 111, 33, 0.14), 0 4px 20px rgba(0, 0, 0, 0.03);
+    --envelope-bg: linear-gradient(145deg, #1C2541 0%, #0B132B 100%);
+    --envelope-border: #D4AF37;
+    --flap-bg: linear-gradient(180deg, #1E293B 0%, #0F172A 100%);
+    --pocket-bg: linear-gradient(135deg, #1C2541 0%, #0F172A 100%);
+    --seal-bg: linear-gradient(135deg, #D4AF37 0%, #F5E096 40%, #AA771C 100%);
+    --seal-border: #FFF5E1;
+    --seal-text: #0B132B;
+
+    --border-gold: rgba(212, 175, 55, 0.4);
+    --shadow-glow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.2);
     --card-radius: 24px;
     --transition-fast: 0.25s ease;
     --transition-smooth: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -248,19 +256,19 @@ body:not(.music-playing) .music-wave span {
 .envelope {
     width: 360px;
     height: 240px;
-    background: linear-gradient(145deg, #F36F21 0%, #FF8800 60%, #E65100 100%);
+    background: var(--envelope-bg, linear-gradient(145deg, #1C2541 0%, #0B132B 100%));
     border-radius: 18px;
     position: relative;
-    box-shadow: 0 25px 60px rgba(243, 111, 33, 0.25), 0 8px 25px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.5), 0 0 30px rgba(212, 175, 55, 0.2);
     transform-style: preserve-3d;
     transition: transform var(--transition-smooth);
-    border: 2px solid #FF8800;
+    border: 2px solid var(--border-gold, #D4AF37);
     overflow: hidden;
 }
 
 .envelope-wrapper:hover .envelope {
     transform: scale(1.04) rotate(-1deg);
-    box-shadow: 0 30px 70px rgba(243, 111, 33, 0.32), 0 10px 30px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6), 0 0 40px rgba(212, 175, 55, 0.35);
 }
 
 /* Top Flap (3D Flip) */
@@ -270,14 +278,14 @@ body:not(.music-playing) .music-wave span {
     left: 0;
     width: 100%;
     height: 152px;
-    background: linear-gradient(180deg, #FF6F00 0%, #FF8F00 70%, #E65100 100%);
+    background: var(--flap-bg, linear-gradient(180deg, #1E293B 0%, #0F172A 100%));
     clip-path: polygon(0 0, 100% 0, 50% 100%);
     border-radius: 18px 18px 0 0;
     transform-origin: top;
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 5;
-    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.15));
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+    border-bottom: 2px solid var(--accent-gold, #D4AF37);
 }
 
 /* Bottom Pocket Flaps */
@@ -287,11 +295,12 @@ body:not(.music-playing) .music-wave span {
     left: 0;
     width: 100%;
     height: 160px;
-    background: linear-gradient(135deg, #F36F21 0%, #FF8800 60%, #E65100 100%);
+    background: var(--pocket-bg, linear-gradient(135deg, #1C2541 0%, #0F172A 100%));
     clip-path: polygon(0 100%, 100% 100%, 100% 30%, 50% 0%, 0 30%);
     border-radius: 0 0 18px 18px;
     z-index: 4;
-    filter: drop-shadow(0 -2px 8px rgba(0,0,0,0.1));
+    filter: drop-shadow(0 -2px 8px rgba(0,0,0,0.25));
+    border-top: 1px solid rgba(212, 175, 55, 0.35);
 }
 
 /* Letter Preview Inside Pocket */
@@ -306,16 +315,16 @@ body:not(.music-playing) .music-wave span {
     border-radius: 12px;
     padding: 16px;
     text-align: center;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.2);
     z-index: 2;
     transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid rgba(243, 111, 33, 0.3);
+    border: 1px solid var(--border-gold, #D4AF37);
 }
 
 .preview-badge {
     font-size: 0.75rem;
     font-weight: 800;
-    color: #F36F21;
+    color: var(--accent-gold, #D4AF37);
     letter-spacing: 2px;
     margin-bottom: 6px;
 }
@@ -335,22 +344,22 @@ body:not(.music-playing) .music-wave span {
     transform: translate(-50%, -50%);
     width: 80px;
     height: 80px;
-    background: linear-gradient(135deg, #FFD54F 0%, #FFA000 50%, #FF6F00 100%);
+    background: var(--seal-bg, linear-gradient(135deg, #D4AF37 0%, #F5E096 40%, #AA771C 100%));
     border-radius: 50%;
-    box-shadow: 0 8px 25px rgba(243, 111, 33, 0.4), inset 0 2px 6px rgba(255,255,255,0.8), inset 0 -2px 6px rgba(0,0,0,0.3);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), inset 0 2px 6px rgba(255,255,255,0.8), inset 0 -2px 6px rgba(0,0,0,0.4);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #0F172A;
+    color: var(--seal-text, #0B132B);
     z-index: 6;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: 3px solid #FFFFFF;
+    border: 3px solid var(--seal-border, #FFF5E1);
 }
 
 .seal i {
     font-size: 1.6rem;
-    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
 
 .seal-text {
@@ -368,10 +377,10 @@ body:not(.music-playing) .music-wave span {
     width: 96px;
     height: 96px;
     border-radius: 50%;
-    border: 3px solid #FFC107;
+    border: 3px solid var(--accent-gold, #D4AF37);
     animation: ringPulse 1.8s infinite ease-out;
     pointer-events: none;
-    box-shadow: 0 0 15px rgba(255, 193, 7, 0.6);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
 }
 
 @keyframes ringPulse {

@@ -15,8 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
         venue: 'Hội trường MMH',
         address: 'Trung tâm Hội nghị Quốc gia, Cổng số 1, Đại lộ Thăng Long, Từ Liêm, Hà Nội',
         message: 'Bốn năm đại học khép lại với đủ thăng trầm, deadline và cả vô vàn kỷ niệm đẹp không thể nào quên. Ngày nhận bằng tốt nghiệp sẽ càng trọn vẹn và ý nghĩa hơn nếu có sự hiện diện của mọi người. Tân thân mời bạn bè, người thân bớt chút thời gian ghé qua check-in, chụp cùng Tân vài kiểu ảnh và chung vui cùng Tân trong ngày đặc biệt này nhé! Hẹn gặp mọi người vào ngày đặc biệt này.',
-        theme: 'theme-fpt',
-        version: 'v5_sync_html_text'
+        theme: 'theme-gold',
+        version: 'v6_mature_gold'
     };
 
     localStorage.removeItem('grad_invitation_config');
@@ -686,7 +686,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         const ambientParticles = [];
-        const colors = ['#F36F21', '#FF9800', '#FFC107', '#FFD54F', '#FFA726'];
+        const colors = ['#D4AF37', '#F5E096', '#AA771C', '#E6C687', '#FFFFFF', '#FCF6BA'];
 
         for (let i = 0; i < 40; i++) {
             ambientParticles.push({
