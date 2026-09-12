@@ -79,31 +79,41 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 4. ENVELOPE OPEN ANIMATION ---
     const envelopeSeal = document.getElementById('envelope-seal');
     const envelopeEl = document.querySelector('.envelope');
-    let isEnvelopeOpened = false;
 
-    function openEnvelope(e) {
-        if (isEnvelopeOpened) return;
-        isEnvelopeOpened = true;
-        if (e && e.preventDefault) e.preventDefault();
+    window.openEnvelope = function(e) {
+        if (e && e.stopPropagation) e.stopPropagation();
 
-        if (envelopeWrapper) envelopeWrapper.classList.add('open');
-        triggerConfetti();
+        const envWrap = document.getElementById('envelope-wrapper');
+        const envSec = document.getElementById('envelope-section');
+        const cardSec = document.getElementById('card-section');
 
-        // Start background ambient music synth
-        toggleMusic(true);
+        if (envWrap) envWrap.classList.add('open');
 
+        // Failsafe Confetti
+        try {
+            if (typeof triggerConfetti === 'function') triggerConfetti();
+        } catch (err) {
+            console.log('Confetti playback skipped:', err);
+        }
+
+        // Failsafe Audio Synth
+        try {
+            if (typeof toggleMusic === 'function') toggleMusic(true);
+        } catch (err) {
+            console.log('Audio autoplay blocked in incognito:', err);
+        }
+
+        // Always reveal invitation card section smoothly
         setTimeout(() => {
-            if (envelopeSection) envelopeSection.style.display = 'none';
-            if (cardSection) cardSection.classList.remove('hidden');
+            if (envSec) envSec.style.display = 'none';
+            if (cardSec) cardSec.classList.remove('hidden');
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 800);
-    }
+        }, 600);
+    };
 
-    ['click', 'touchstart', 'pointerdown'].forEach(evtType => {
-        if (envelopeWrapper) envelopeWrapper.addEventListener(evtType, openEnvelope, { passive: false });
-        if (envelopeSeal) envelopeSeal.addEventListener(evtType, openEnvelope, { passive: false });
-        if (envelopeEl) envelopeEl.addEventListener(evtType, openEnvelope, { passive: false });
-    });
+    if (envelopeWrapper) envelopeWrapper.addEventListener('click', window.openEnvelope);
+    if (envelopeSeal) envelopeSeal.addEventListener('click', window.openEnvelope);
+    if (envelopeEl) envelopeEl.addEventListener('click', window.openEnvelope);
 
     // --- 5. CONFIGURATION & DOM BINDING ---
     function applyConfigToDOM(config) {
