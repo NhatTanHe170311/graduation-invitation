@@ -73,6 +73,8 @@ document.addEventListener('DOMContentLoaded', () => {
     renderWishes();
     updateRSVPCounters();
     initCountdownTimer(appConfig.isoDate);
+    initAmbientSparkles();
+    initScrollObserver();
 
     // --- 4. ENVELOPE OPEN ANIMATION ---
     if (envelopeWrapper) {
@@ -621,12 +623,77 @@ document.addEventListener('DOMContentLoaded', () => {
         ];
     }
 
-    function getSampleWishes() {
-        return [
-            { id: 1, author: 'Minh Hoàng', text: 'Chúc mừng Tân Cử Nhân xuất sắc! Chúc An bước sang chặng đường mới luôn gặt hái nhiều thành công rực rỡ nhé! 🚀', sticker: '🎓', time: '10:15 11/09/2026' },
-            { id: 2, author: 'Thu Thảo', text: 'Tự hào về cậu thật sự. 4 năm nỗ lực đã được đền đáp xứng đáng rồi nè! 🎉🎉', sticker: '💐', time: '14:30 11/09/2026' },
-            { id: 3, author: 'Nhóm Bạn Thân A4', text: 'Chúc An ra trường công việc thuận lợi, lương nghìn đô, vạn sự như ý nha bro! ⭐', sticker: '⭐', time: '16:45 11/09/2026' }
-        ];
+    // --- 16. AMBIENT SPARKLES & SCROLL OBSERVER ---
+    function initAmbientSparkles() {
+        const canvas = document.getElementById('confetti-canvas');
+        if (!canvas) return;
+
+        const ctx = canvas.getContext('2d');
+        let width = canvas.width = window.innerWidth;
+        let height = canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        });
+
+        const ambientParticles = [];
+        const colors = ['#F36F21', '#FF9800', '#FFC107', '#FFD54F', '#FFA726'];
+
+        for (let i = 0; i < 40; i++) {
+            ambientParticles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                size: Math.random() * 4 + 2,
+                color: colors[Math.floor(Math.random() * colors.length)],
+                speedY: Math.random() * 0.7 + 0.2,
+                speedX: (Math.random() - 0.5) * 0.4,
+                opacity: Math.random() * 0.7 + 0.2,
+                pulse: Math.random() * 0.02 + 0.005
+            });
+        }
+
+        function animateSparkles() {
+            ctx.clearRect(0, 0, width, height);
+
+            ambientParticles.forEach(p => {
+                p.y -= p.speedY;
+                p.x += p.speedX;
+                p.opacity += Math.sin(Date.now() * p.pulse) * 0.01;
+
+                if (p.y < -10) {
+                    p.y = height + 10;
+                    p.x = Math.random() * width;
+                }
+
+                ctx.save();
+                ctx.globalAlpha = Math.max(0.1, Math.min(0.8, p.opacity));
+                ctx.fillStyle = p.color;
+                ctx.shadowColor = p.color;
+                ctx.shadowBlur = 8;
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.restore();
+            });
+
+            requestAnimationFrame(animateSparkles);
+        }
+
+        animateSparkles();
+    }
+
+    function initScrollObserver() {
+        const sections = document.querySelectorAll('.section-container');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        sections.forEach(sec => observer.observe(sec));
     }
 });
 
